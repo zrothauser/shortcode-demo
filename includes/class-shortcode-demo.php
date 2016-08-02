@@ -40,6 +40,30 @@ class Shortcode_Demo {
 	}
 
 	/**
+	 * Activate the plugin
+	 *
+	 * @return void.
+	 */
+	public static function activate() {
+		// First load the init scripts in case any rewrite functionality is being loaded
+		self::init();
+
+		// Rewrite rule for the index page
+		flush_rewrite_rules();
+	}
+
+	/**
+	 * Deactivate the plugin
+	 *
+	 * Uninstall routines should be in uninstall.php
+	 *
+	 * @return void.
+	 */
+	public static function deactivate() {
+		flush_rewrite_rules();
+	}
+
+	/**
 	 * Return the plugin URL.
 	 *
 	 * @return The URL to the plugin's directory.
@@ -54,7 +78,7 @@ class Shortcode_Demo {
 	public function frontend_styles() {
 		wp_enqueue_style(
 			'shortcode-demo',
-			trailingslashit( $this->get_plugin_url() ) . 'css/shortcode-demo.css',
+			trailingslashit( $this->get_plugin_url() ) . 'assets/css/shortcode-demo.css',
 			SHORTCODE_DEMO_VERSION
 		);
 	}
@@ -68,7 +92,7 @@ class Shortcode_Demo {
 			$mce_css .= ',';
 		}
 
-		$mce_css .= trailingslashit( $this->get_plugin_url() ) . 'css/shortcode-demo.css';
+		$mce_css .= trailingslashit( $this->get_plugin_url() ) . 'assets/css/shortcode-demo.css';
 
 		return $mce_css;
 	}

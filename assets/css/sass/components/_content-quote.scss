@@ -1,3 +1,27 @@
 .content-quote {
-	
+	padding: 0 0.5em 0.5em;
+	font-weight: bold;
+	font-size: 28px;
+
+	p:last-child {
+		margin-bottom: 0;
+	}
+
+	&.-left {
+		max-width: 300px;
+		float: left;
+		padding: 0 0.5em 0.5em 0;
+	}
+
+	&.-right {
+		max-width: 300px;
+		float: right;
+		padding: 0 0 0.5em 0.5em;
+	}
+
+	> .citation {
+		text-align: right;
+		font-size: 14px;
+		font-style: italic;
+	}
 }

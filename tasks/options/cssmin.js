@@ -10,7 +10,7 @@ module.exports = {
 		expand: true,
 
 		cwd: 'assets/css/',
-		src: ['book-notes.css'],
+		src: ['shortcode-demo.css'],
 
 		dest: 'assets/css/',
 		ext: '.min.css'
