@@ -1,0 +1,10 @@
+{
+	"version": 3,
+	"file": "shortcode-demo.css",
+	"sources": [
+		"sass/shortcode-demo.scss",
+		"sass/components/_content-quote.scss"
+	],
+	"mappings": "",
+	"names": []
+}
