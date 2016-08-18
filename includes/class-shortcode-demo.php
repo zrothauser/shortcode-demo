@@ -31,9 +31,11 @@ class Shortcode_Demo {
 		add_shortcode( 'quote', array( $this, 'quote_shortcode' ) );
 
 		// Admin filters
-		add_filter( 'mce_external_plugins', array( $this, 'add_tinymce_plugin' ) );
-		add_filter( 'mce_buttons',          array( $this, 'add_tinymce_button' ) );
-		add_action( 'mce_css',              array( $this, 'editor_styles' ) );
+		add_filter( 'mce_external_plugins',  array( $this, 'add_tinymce_plugin' ) );
+		add_filter( 'mce_buttons',           array( $this, 'add_tinymce_button' ) );
+		add_action( 'mce_css',               array( $this, 'editor_styles' ) );
+
+		add_action( 'register_shortcode_ui', array( $this, 'register_shortcode_for_shortcode_ui' ) );
 
 		// Frontend filters
 		add_action( 'wp_enqueue_scripts',   array( $this, 'frontend_styles' ) );
@@ -167,5 +169,43 @@ class Shortcode_Demo {
 		ob_end_clean();
 
 		return $html;
+	}
+
+	/**
+	 * Register the shortcode with Shortcake/Shortcode UI, if it's activated.
+	 */
+	public function register_shortcode_for_shortcode_ui() {
+
+		// Return if this somehow gets called and Shortcake isn't activated
+		if ( ! function_exists( 'shortcode_ui_register_for_shortcode' ) ) {
+			return;
+		}
+
+		$args = array(
+			'label' => 'Quote',
+			'listItemImage' => plugins_url( '../assets/images/wordpress.png', dirname( __FILE__ ) ),
+			'inner_content' => array( 'label' => 'Quote' ),
+			'attrs' => array(
+				array(
+					'label'       => 'Citation',
+					'attr'        => 'citation',
+					'type'        => 'text',
+					'placeholder' => 'Name',
+				),
+				array(
+					'label'       => 'Alignment',
+					'description' => 'Pull the quote to the left or right, or let it take up the full width of the content.',
+					'attr'        => 'align',
+					'type'        => 'select',
+					'options'     => array(
+						'full-width' => 'Full-Width',
+						'left'       => 'Pull Left',
+						'right'      => 'Pull Right',
+					),
+				),
+			),
+		);
+
+		shortcode_ui_register_for_shortcode( 'quote', $args );
 	}
 }
